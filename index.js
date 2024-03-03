@@ -40,7 +40,7 @@ circles.forEach((circle, index) => {
 
 
 // Automatically advance the carousel every 3 seconds (adjust as needed)
-setInterval(nextSlide, 5000);
+setInterval(nextSlide, 3000);
 
 // Initial slide
 // goToSlide(0);
