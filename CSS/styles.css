@@ -136,7 +136,7 @@ a.active {
 #hero {
     position: relative;
     top: 4rem;
-    height: 70vh;
+    height: 39vw;
     overflow: hidden;
 }
 
@@ -153,7 +153,7 @@ a.active {
     height:100%;
     transition: all .5s linear;
     object-fit: cover;
-    object-position: center;
+    object-position: 50% 50%;
 }
 
 .corousel-nav {
@@ -174,14 +174,14 @@ a.active {
     border-radius: 50%;
 }
 /* hero section responsiveness */
-@media (max-width:1250px) {
-    #hero {
-        height: 60vh;
-    }
-}
-@media (max-width:1075px) {
+@media (max-width:365px) {
     #hero {
         height: 50vh;
+    }
+}
+@media (max-width:768px) {
+    #hero {
+        height: 45vh;
     }
 }
 /* Products section */
@@ -478,6 +478,7 @@ iframe {
     flex-basis: 30%;
     padding: 0.25%;
     object-fit: cover;
+    object-position: center;
     transition: all .1s ease;
 }
 .gallery-card img {
@@ -562,6 +563,10 @@ iframe {
     flex-basis: 80%;
     font-size: 1.2rem;
     padding: 1.2rem 0;
+}
+
+.contact-card p a {
+    text-decoration: none;
 }
 
 
