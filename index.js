@@ -3,6 +3,8 @@ const carouselContainer = document.querySelector('.corousel-container');
 const slides = document.querySelectorAll('.corousel-slide');
 const circles = document.querySelectorAll('.corousel-button');
 const links = document.querySelectorAll('.nav-link');
+const leftArrow = document.querySelector(".bx-chevron-left");
+const rightArrow = document.querySelector(".bx-chevron-right");
 
 // Hero Section
 
@@ -19,24 +21,43 @@ function goToSlide(index) {
     const translateX = -currentIndex * 100 + '%';
     carouselContainer.style.transform = `translateX(${translateX})`;
     carouselContainer.style.transition = 'all .5s ease';
-    circles[currentIndex].style.backgroundColor = "#fff";
+    circles[currentIndex].style.backgroundColor = "#5C715E";
 }
 
 function nextSlide() {
     if (currentIndex < slides.length - 1) {
         goToSlide(currentIndex + 1);
-        circles[currentIndex - 1].style.backgroundColor = "#201e1e"
+        circles[currentIndex - 1].style.backgroundColor = "transparent"
     } else {
         goToSlide(0); // Loop back to the first slide
-        circles[slides.length - 1].style.backgroundColor = "#201e1e"
+        circles[slides.length - 1].style.backgroundColor = "transparent"
     }
 }   
+
+function prevSlide() {
+    if (currentIndex > 0) {
+        goToSlide(currentIndex - 1);
+        circles[currentIndex + 1].style.backgroundColor = "transparent"
+    } else {
+        goToSlide(slides.length - 1); // Loop back to the first slide
+        circles[0].style.backgroundColor = "transparent"
+    }
+}
+
+leftArrow.addEventListener("click", () => {
+    prevSlide();
+});
+
+rightArrow.addEventListener("click", () => {
+    nextSlide();
+});
+
 circles.forEach((circle, index) => {
     circle.addEventListener("click", () => {
-        circles[currentIndex].style.backgroundColor = "#201e1e"
+        circles[currentIndex].style.backgroundColor = "transparent"
         goToSlide(index)
     });
-})
+});
 
 
 // Automatically advance the carousel every 3 seconds (adjust as needed)
