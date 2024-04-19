@@ -1,4 +1,5 @@
 // script.js (optional)
+const heroContainer = document.querySelector('.hero-container');
 const carouselContainer = document.querySelector('.corousel-container');
 const slides = document.querySelectorAll('.corousel-slide');
 const circles = document.querySelectorAll('.corousel-button');
@@ -9,6 +10,11 @@ const rightArrow = document.querySelector(".bx-chevron-right");
 // Hero Section
 
 let currentIndex = 0;
+let isDragging = false;
+let startPosition = 0;
+let currentTranslate = 0;
+let prevTranslate = 0;
+
 
 slides.forEach(
     (slide,index) => {
@@ -44,6 +50,38 @@ function prevSlide() {
     }
 }
 
+// Mouse event listeners for dragging
+heroContainer.addEventListener('mousedown', onMouseDown);
+
+
+function onMouseDown(event) {
+    isDragging = true;
+    startPosition = event.clientX;
+    console.log(startPosition);
+    prevTranslate = currentTranslate;
+    console.log(prevTranslate);
+    heroContainer.addEventListener('mousemove', onMouseMove);
+}
+
+function onMouseMove(event) {
+    if (isDragging) {
+        const currentPosition = event.clientX;
+        console.log(currentPosition);
+        currentTranslate = currentPosition - startPosition;
+        console.log(currentTranslate);
+        if (currentTranslate < 0) {
+            nextSlide();
+        } else {
+            prevSlide();
+        }
+    }
+    onMouseUp();
+}
+
+function onMouseUp() {
+    isDragging = false; 
+}
+
 leftArrow.addEventListener("click", () => {
     prevSlide();
 });
@@ -60,8 +98,9 @@ circles.forEach((circle, index) => {
 });
 
 
+
 // Automatically advance the carousel every 3 seconds (adjust as needed)
-setInterval(nextSlide, 3000);
+// setInterval(nextSlide, 5000);
 
 // Initial slide
 // goToSlide(0);
