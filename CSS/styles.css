@@ -223,7 +223,7 @@ a.active {
 
     #hero {
         height: 50vh;
-        padding: 25px 5px 25px 5px;
+        padding: 15px 15px;
     }
 
     .corousel-arrow {
@@ -231,7 +231,7 @@ a.active {
     }
 
     .corousel-nav {
-        height: 25px;
+        height: 15px;
     }
 
     .corousel-button {
@@ -299,7 +299,7 @@ a.active {
     }
 
     .categories h2, #location h2 {
-        margin: 0 5px;
+        margin: 0 15px;
         font-size: 24px;
         padding: 20px 0;
     }
@@ -309,8 +309,7 @@ a.active {
     }
 
     .wear-card, #products h2, #gallery h1 {
-        text-align: center;
-        width: 300px;
+        width: 85%;
         font-size: 24px;
         padding: 15px;
         border-radius: 10px;
@@ -562,7 +561,7 @@ iframe {
 }
 
 .gallery-card {
-    height: 300px;
+    height: 500px;
     width: 400px;
     padding: 0.25%;
     object-fit: cover;
@@ -574,6 +573,8 @@ iframe {
     width: 100%;
     height: 100%;
     border-radius: 5px;
+    object-fit: cover;
+    object-position: 50% 0%;
     /* box-shadow: 0 0 10px black; */
 }
 
@@ -590,9 +591,10 @@ iframe {
     }
 
     .gallery-card {
-        height: 250px;
+        height: 400px;
         width: 300px;
     }
+
 }
 @media (max-width:580px) {
     
@@ -601,7 +603,7 @@ iframe {
     }
 
     .gallery-container {
-        padding: 50px 13px 4rem;
+        padding: 50px 0 4rem;
     }
 }
 
