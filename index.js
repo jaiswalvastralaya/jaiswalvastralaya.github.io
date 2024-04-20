@@ -6,14 +6,17 @@ const circles = document.querySelectorAll('.corousel-button');
 const links = document.querySelectorAll('.nav-link');
 const leftArrow = document.querySelector(".bx-chevron-left");
 const rightArrow = document.querySelector(".bx-chevron-right");
+const checkbox = document.getElementById('check');
 
 // Hero Section
 
 let currentIndex = 0;
 let isDragging = false;
+let isHovering = false; // Variable to track if mouse is hovering over the slide
 let startPosition = 0;
 let currentTranslate = 0;
 let prevTranslate = 0;
+let slideTimer; // Variable to store setInterval reference
 
 
 slides.forEach(
@@ -52,6 +55,8 @@ function prevSlide() {
 
 // Mouse event listeners for dragging
 heroContainer.addEventListener('mousedown', onMouseDown);
+heroContainer.addEventListener('touchstart', onTouchStart);
+// document.addEventListener('touchend', onTouchEnd);
 
 
 function onMouseDown(event) {
@@ -63,13 +68,20 @@ function onMouseDown(event) {
     heroContainer.addEventListener('mousemove', onMouseMove);
 }
 
+function onTouchStart(event) {
+    isDragging = true;
+    startPosition = event.touches[0].clientX;
+    prevTranslate = currentTranslate;
+    heroContainer.addEventListener('touchmove', onTouchMove);
+}
+
 function onMouseMove(event) {
     if (isDragging) {
         const currentPosition = event.clientX;
         console.log(currentPosition);
         currentTranslate = currentPosition - startPosition;
         console.log(currentTranslate);
-        if (currentTranslate < 0) {
+        if (currentPosition < startPosition) {
             nextSlide();
         } else {
             prevSlide();
@@ -78,8 +90,26 @@ function onMouseMove(event) {
     onMouseUp();
 }
 
+function onTouchMove(event) {
+    if (isDragging) {
+        const currentPosition = event.touches[0].clientX;
+        currentTranslate = prevTranslate + currentPosition - startPosition;
+        if (currentPosition < startPosition) {
+            nextSlide();
+        } else {
+            prevSlide();
+        }
+    }
+    onTouchEnd();
+}
+
 function onMouseUp() {
     isDragging = false; 
+}
+
+function onTouchEnd() {
+    isDragging = false;
+    prevTranslate = 0;
 }
 
 leftArrow.addEventListener("click", () => {
@@ -97,29 +127,42 @@ circles.forEach((circle, index) => {
     });
 });
 
+// Slide hover event listeners
+heroContainer.addEventListener('mouseenter', () => {
+    isHovering = true;
+    clearInterval(slideTimer); // Pause sliding
+});
+heroContainer.addEventListener('mouseleave', () => {
+    isHovering = false;
+    slideTimer = setInterval(nextSlide, 3000); // Resume sliding
+});
+
+// Touch event listeners
+heroContainer.addEventListener('touchstart', () => {
+    isTouching = true;
+    clearInterval(slideTimer); // Pause sliding
+});
+heroContainer.addEventListener('touchend', () => {
+    isTouching = false;
+    slideTimer = setInterval(nextSlide, 3000); // Resume sliding
+});
+
+// Automatically advance the carousel every 10 seconds (adjust as needed)
+slideTimer = setInterval(nextSlide, 3000);
+
 
 
 // Automatically advance the carousel every 3 seconds (adjust as needed)
-setInterval(nextSlide, 3000);
+// setInterval(nextSlide, 5000);
+
+function toggleCheckbox() {
+    checkbox.checked = !checkbox.checked;
+  }
 
 // Initial slide
-// goToSlide(0);
-
-// adding event listeners
+goToSlide(0);
 
 
-
-// Setting active link
-
-// links.forEach((link,index) => {
-//     link.addEventListener("click", () => {
-//         var current = document.querySelector("a.active");
-//         console.log(links[index])
-//         console.log(current);
-//         current.className.replace("active","");
-//         link.classList.add("active");
-//     });
-// });
 
 
 
